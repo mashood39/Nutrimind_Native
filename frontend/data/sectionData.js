@@ -1,4 +1,19 @@
-const sections = [
+const sectionData = () => {
+    useEffect(() => {
+        const fetchBlogs = async () => {
+            try {
+                const response = await axios.get('http://localhost:4000/api/blogs');
+                setBlogs(response.data);
+            }
+            catch (error) {
+                console.error("error in fetching blogs", error);
+            }
+        }
+        fetchBlogs();
+    }, [])
+}
+
+const data = [
     {
         title: 'Read blogs for latest insights.',
         items: [
@@ -52,4 +67,4 @@ const sections = [
     },
 ];
 
-export default sections;
+export default sectionData;

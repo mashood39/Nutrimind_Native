@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 20,
+    // backgroundColor: '#ffffff'
     // padding: 15,
 
   },
@@ -76,20 +77,23 @@ const styles = StyleSheet.create({
 
   content: {
     flex: 1,
-    padding: 15,
+    paddingHorizontal: 15,
+    paddingTop: 15,
+    // padding: 15,
   },
   footer: {
-    backgroundColor: '#c2c2c2',
     height: 70,
     justifyContent: 'space-around',
     alignItems: 'center',
-    position: 'absolute', // Fixes the footer to the bottom
+    // position: 'absolute', // Fixes the footer to the bottom
     bottom: 0,
     left: 0,
     right: 0,
     flexDirection: 'row',
-    gap: 20
-
+    // gap: 20,
+    borderTopWidth: 0.5, // Adds a border above the footer
+    borderTopColor: '#e0e0e0',
+    // backgroundColor: '#ffffff',
   },
   image1: {
     width: 30,

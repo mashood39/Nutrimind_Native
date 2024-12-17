@@ -1,9 +1,18 @@
 import React from 'react';
-import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Layout from '../components/Layout';
-import SectionData from '../data/sectionData.js'
+import HomeCard from '../components/HomeCard';
+import blogsData from '../data/blogsData';
 
 const HomeScreen = ({ navigation }) => {
+
+  const renderItem = ({ item }) => (
+    <HomeCard
+      title={item.title}
+      image={item.image}
+      onPress={() => navigation.navigate('BlogScreen', { blog: item })}
+    />
+  );
 
   return (
     <Layout>
@@ -20,32 +29,42 @@ const HomeScreen = ({ navigation }) => {
           </View>
         </View>
 
-        {/* sections */}
-        {SectionData.map((section, sectionIndex) => (
-          <View key={sectionIndex} style={styles.section}>
-            <Text style={styles.sectionTitle}>{section.title}</Text>
-            <View style={styles.cardsContainer}>
-              {section.items.map((item, itemIndex) => (
-                <TouchableOpacity
-                  key={itemIndex}
-                  style={styles.card}
-                  onPress={() => navigation.navigate(item.navigateTo)}
-                >
-                  <Image source={item.image} style={styles.cardImage} />
-                  <View style={styles.cardTextContainer}>
-                    <Text style={styles.cardTitle}>{item.title}</Text>
-                    <Text style={styles.cardSubtitle}>{item.subtitle}</Text>
-                  </View>
-                  <TouchableOpacity
-                    style={styles.arrowButton}
-                    onPress={() => navigation.navigate(item.navigateTo)}
-                  >
-                  </TouchableOpacity>
-                </TouchableOpacity>
-              ))}
-            </View>
+        {/* Blog section */}
+        {/* <View style={styles.blogSection}>
+          <Text style={styles.sectionTitle}>Read blogs for latest insights.</Text>
+          <View style={styles.cardContainer}>
+            {blogsData.map((blog) => {
+              <HomeCard key={blog.id}  title={blog.title}/>
+             })}
           </View>
-        ))}
+        </View> */}
+
+        {/* Blog Section */}
+        <View style={styles.blogSection}>
+          <Text style={styles.sectionTitle}>Read blogs for the latest insights.</Text>
+          <FlatList
+            data={blogsData}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id.toString()}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.flatListContainer}
+          />
+        </View>
+
+        {/* Quizzes and puzzles */}
+        <View style={styles.blogSection}>
+          <Text style={styles.sectionTitle}>Quizzes and puzzles.</Text>
+          <FlatList
+            data={blogsData}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id.toString()}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.flatListContainer}
+          />
+        </View>
+
 
       </ScrollView>
     </Layout>
@@ -85,49 +104,19 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     borderRadius: 20,
   },
+  blogSection: {
+    // marginTop: 10,  // Adds spacing between banner and the blog section
+  },
+  flatListContainer: {
+    paddingLeft: 0,  // Adds space on the left for the first card
+  },
   section: {
     // marginBottom: 10,
   },
   sectionTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 15,
+    marginBottom: 10,
     color: '#333',
-  },
-  cardsContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-  },
-  card: {
-    // flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#f9f9f9',
-    borderRadius: 10,
-    marginBottom: 15,
-    padding: 10,
-    elevation: 1,
-    width: '48%',
-  },
-  cardImage: {
-    width: '100%',
-    height: 100,
-    borderRadius: 10,
-    // marginRight: 10,
-    marginBottom: 5,
-  },
-  cardTextContainer: {
-    flex: 1,
-  },
-  cardTitle: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 5,
-    textAlign: 'center',
-  },
-  cardSubtitle: {
-    fontSize: 12,
-    color: '#777',
   },
 });

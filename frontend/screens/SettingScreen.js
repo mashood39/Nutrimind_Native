@@ -9,7 +9,7 @@ const ProfileScreen = ({ navigation }) => {
                 {/* Profile Header */}
                 <View style={styles.profileHeader}>
                     <Image
-                        source={require('../assets/images/image_2.png')}
+                        source={require('../assets/images/blogImages/image_2.png')}
                         style={styles.profileImage}
                     />
                     <View style={styles.profileInfo}>

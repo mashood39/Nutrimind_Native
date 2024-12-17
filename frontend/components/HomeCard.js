@@ -1,46 +1,42 @@
 import React from 'react';
-import { View, Image, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
-export default function HomeCard({ items , navigation }) {
+export default function HomeCard({ title, image, onPress }) {
   return (
     <View style={styles.container}>
-      {items.map((item, index) => (
-        <TouchableOpacity key={index} style={styles.card} >
-          <Image source={item.image} style={styles.cardImage} />
-          <Text style={styles.cardTitle}>{item.title}</Text>
-          <Text style={styles.cardSubtitle}>{item.subtitle}</Text>
-        </TouchableOpacity>
-      ))}
+      <TouchableOpacity style={styles.card} onPress={onPress}>
+        <Image source={image} style={styles.cardImage} />
+        <Text style={styles.cardTitle}>
+          {title.length > 20 ? title.slice(0, 20) + '...' : title}
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    marginRight: 10, // Provides spacing between cards
   },
   card: {
-    width: '48%',
+    width: 170,
+    // height: '150',  // Fixed width for cards
     backgroundColor: '#f9f9f9',
     borderRadius: 10,
     padding: 10,
     alignItems: 'center',
-  },
-  cardImage: {
-    width: '100%',
-    height: 100,
-    borderRadius: 10,
-    marginBottom: 10,
+    marginBottom: 15,
   },
   cardTitle: {
     fontSize: 14,
     fontWeight: 'bold',
     textAlign: 'center',
+    // marginTop: 5,
   },
-  cardSubtitle: {
-    fontSize: 12,
-    color: '#666',
-    textAlign: 'center',
+  cardImage: {
+    width: '100%',
+    height: 90,  // Fixed height for images
+    borderRadius: 10,
+    marginBottom: 10,
   },
 });

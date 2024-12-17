@@ -1,14 +1,18 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-const ExploreSection = ({ tags }) => {
+const ExploreSection = ({ mindMapData, navigation }) => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Explore mind maps on nutrition</Text>
             <View style={styles.tagContainer}>
-                {tags.map((tag, index) => (
-                    <TouchableOpacity key={index} style={styles.tag}>
-                        <Text style={styles.tagText}>{tag}</Text>
+                {mindMapData.map((item, index) => (
+                    <TouchableOpacity
+                        key={index}
+                        style={styles.tag}
+                        onPress={() => navigation.navigate('MindMapScreen', { url: item.url })}
+                    >
+                        <Text style={styles.tagText}>{item.tag}</Text>
                     </TouchableOpacity>
                 ))}
             </View>
