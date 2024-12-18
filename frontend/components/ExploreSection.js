@@ -1,18 +1,45 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-const ExploreSection = ({ mindMapData, navigation }) => {
+const ExploreSection = ({ navigation }) => {
+
+    const [diagrams, setDiagrams] = useState([]);
+
+    const fetchDiagrams = async () => {
+        try {
+            const response = await fetch('http://10.32.1.107:7000/fetch-diagrams'); // Backend API
+            if (!response.ok) throw new Error('Failed to fetch diagrams.');
+            // const contentType = response.headers.get("content-type");
+            // console.log(contentType)
+
+            const data = await response.json();
+            // console.log(data)
+            // console.log("thsi is data end ")
+            // console.log(response)
+
+            setDiagrams(data);
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchDiagrams();
+    }, []);
+
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Explore mind maps on nutrition</Text>
             <View style={styles.tagContainer}>
-                {mindMapData.map((item, index) => (
+                {diagrams.map((diagram, index) => (
                     <TouchableOpacity
                         key={index}
                         style={styles.tag}
-                        onPress={() => navigation.navigate('MindMapScreen', { url: item.url })}
+                        onPress={() => navigation.navigate('MindMapScreen', { id: diagram.short_id, title: diagram.url_title })}
                     >
-                        <Text style={styles.tagText}>{item.tag}</Text>
+                        <Text style={styles.tagText}>{diagram.title}</Text>
                     </TouchableOpacity>
                 ))}
             </View>

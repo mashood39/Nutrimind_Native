@@ -1,7 +1,6 @@
 const express = require('express')
 const cors = require('cors')
 const dotenv = require('dotenv')
-const { log } = require('console')
 const connectDB = require('./config/db')
 const blogRoutes = require('./routes/blogRoutes')
 dotenv.config()
@@ -15,8 +14,8 @@ app.use(express.json())
 
 const PORT = process.env.PORT || 4000
 
-app.use('/api/blogs' , blogRoutes)
+app.use('/api/blogs', blogRoutes)
 
-app.listen(PORT ,'0.0.0.0', () => {
-    log('server running succesfully ok')
+app.listen(PORT, '0.0.0.0', () => {
+    console.log('server running succesfully')
 })
